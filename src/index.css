@@ -1,0 +1,163 @@
+body {
+  background-color: #f0f0f0;
+  margin: 0;
+  font-family: sans-serif;
+}
+.app-container { text-align: center; }
+.toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa;
+  flex-direction: column;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.app-toolbar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+
+}
+.app-toolbar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.toolbar button { margin: 0 0.5rem; padding: 0.5rem 1rem; }
+.editor-root { display: flex; justify-content: center; }
+.editor-viewport { position: relative; width: 210mm; }
+.pages { display: flex; flex-direction: column; gap: 1rem; }
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.page-header,
+.page-footer {
+  height: 1.2cm;
+  font-size: 12px;
+  color: #555;
+  background-color: #f1f3f5;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: 'Segoe UI', sans-serif;
+}
+.page-footer {
+  margin-top: auto;
+  justify-content: center;
+  font-style: italic;
+  border-top: 1px solid #ccc;
+}
+
+.page-content-area { flex-grow: 1; }
+
+.tiptap-editor-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1cm;
+  padding-top: calc(2cm);
+  padding-bottom: calc(2cm + 2cm);
+}
+
+.prose { text-align: left; }
+.prose:focus { outline: none; }
+.prose p { margin: 0 0 1em; }
+.prose p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+}
+
+/* --- Manual Page Break Styling --- */
+.page-break {
+  margin: 1rem 0;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page-break::before {
+  content: '';
+  display: block;
+  width: 100%;
+  border-top: 2px dashed #ced4da;
+}
+.page-break-indicator {
+  position: absolute;
+  color: #868e96;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: white;
+  padding: 0 0.5rem;
+}
+
+@media print {
+  body { background: none; }
+  .toolbar { display: none; }
+  .pages { display: none; }
+  .editor-viewport { position: static; width: auto; }
+  .tiptap-editor-wrapper {
+    position: static;
+    padding: 0;
+  }
+  .page-break {
+    break-before: page;
+    height: 0;
+    margin: 0;
+    border: none;
+  }
+  .page-break-indicator { display: none; }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .printable-area, .printable-area * {
+    visibility: visible;
+  }
+
+  .printable-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  /* Remove page margins in print for better control */
+  @page {
+    margin: 0;
+    size: A4;
+  }
+
+  /* Optional: remove scrollbars or overflow */
+  html, body {
+    overflow: hidden !important;
+  }
+}
